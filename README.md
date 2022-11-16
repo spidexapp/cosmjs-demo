@@ -1,6 +1,6 @@
 ## Cosmjs frontend
 
-<img width="1400" alt="image" src="https://user-images.githubusercontent.com/14268015/201257018-1bf6cb63-dc0a-4c72-b7be-d3c4583cfeab.png">
+<img width="1598" alt="image" src="https://user-images.githubusercontent.com/14268015/202108553-32bc10d3-e030-49a6-9fe3-50625be2f1a3.png">
 
 - [ignite doc](https://docs.ignite.com)
 - [cosmjs](https://github.com/cosmos/cosmjs)
