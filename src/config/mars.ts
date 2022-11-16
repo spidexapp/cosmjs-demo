@@ -4,8 +4,8 @@ const chain = {
 	chainId: "mars",
 	chainName: "mars",
 	stakeCurrency: {
-		coinDenom: "MARS",
-		coinMinimalDenom: "mars",
+		coinDenom: "MAR",
+		coinMinimalDenom: "mar",
 		coinDecimals: 6,
 	},
 	bech32Config: {
@@ -18,11 +18,10 @@ const chain = {
 	},
 	bip44: { coinType: 118 },
 	currencies: [
-		{ coinDenom: "MARS", coinMinimalDenom: "mars", coinDecimals: 6 },
-		{ coinDenom: "EARTH", coinMinimalDenom: "earth", coinDecimals: 6 },
+		{ coinDenom: "MAR", coinMinimalDenom: "mar", coinDecimals: 6 },
 	],
 	feeCurrencies: [
-		{ coinDenom: "MARS", coinMinimalDenom: "mars", coinDecimals: 6 },
+		{ coinDenom: "MAR", coinMinimalDenom: "mar", coinDecimals: 6 },
 	],
 	gasPriceStep: { low: 0.05, average: 0.125, high: 0.2 },
 	features: ["stargate", "no-legacy-stdTx", "ibc-transfer","ibc-go"],
