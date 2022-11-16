@@ -78,7 +78,7 @@ module.exports = {
 	plugins: [
 		//插件
 		new HtmlWebpackPlugin({
-			title: "Cosmosjs 课程实践", //对应html文件 title
+			title: "Cosmjs 课程实践", //对应html文件 title
 			template: path.resolve(__dirname, "./public/index.html"), //html配置路径
 			filename: "index.html",
 		}),

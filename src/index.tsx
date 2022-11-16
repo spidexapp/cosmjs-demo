@@ -14,6 +14,7 @@ const App = () => {
 					<p>-- Stargate --</p>
 					<ul>
 						<li>连接/断开</li>
+						<li>助记词</li>
 						<li>水龙头</li>
 						<li>查余额</li>		
 						<li>查账户</li>	

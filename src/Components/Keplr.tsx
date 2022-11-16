@@ -4,11 +4,12 @@ import {
 	SigningStargateClient,
 } from "@cosmjs/stargate";
 import React, { useEffect, useState } from "react";
-import chain from "../config/mars";
+import earth from "../config/earth";
+import mars from "../config/mars";
 
 function Keplr() {
-	const rpc = chain.rpc;
-	const [chainId, setChainId] = useState<any>(chain.chainId);
+	const [chain, setChain] = useState<any>(earth);
+	const [selected, setSelected] = useState<any>("EARTH");
 	const [client, setClient] = useState<any>();
 	const [address, setAddress] = useState<any>();
 
@@ -21,6 +22,14 @@ function Keplr() {
 	const [txRes, setTxRes] = useState<any>();
 
 	useEffect(() => {
+		if (selected === "EARTH") {
+			setChain(earth);
+		} else {
+			setChain(mars);
+		}
+	}, [selected]);
+
+	useEffect(() => {
 		if (!address && !client) {
 			return;
 		}
@@ -30,7 +39,7 @@ function Keplr() {
 	const getBalance = async () => {
 		if (client) {
 			const _balances = await client?.getAllBalances(address);
-			console.log(_balances)
+			console.log(_balances);
 			setBalances(_balances);
 		}
 	};
@@ -94,7 +103,7 @@ function Keplr() {
 			ibcRecipent.trim(),
 			transferAmount,
 			"transfer",
-			"channel-1",
+			"channel-0",
 			undefined,
 			Math.floor(Date.now() / 1000) + 60,
 			fee,
@@ -102,6 +111,9 @@ function Keplr() {
 		);
 		console.log(result);
 		assertIsDeliverTxSuccess(result);
+		if(result.code ==0){
+			alert("transfer success!, Height:"+result.height + " Hash:"+ result.transactionHash)
+		}
 
 		console.log(result);
 	};
@@ -114,12 +126,12 @@ function Keplr() {
 
 		// add your chain to keplr
 		await window.keplr.experimentalSuggestChain(chain);
-		await window.keplr.enable(chainId);
+		await window.keplr.enable(chain.chainId);
 
-		const offlineSigner = window.getOfflineSigner?.(chainId);
+		const offlineSigner = window.getOfflineSigner?.(chain.chainId);
 		const accounts = await offlineSigner?.getAccounts();
 		const client = await SigningStargateClient.connectWithSigner(
-			rpc,
+			chain.rpc,
 			offlineSigner
 		);
 		// console.log(client);
@@ -131,7 +143,17 @@ function Keplr() {
 		<div className="keplr">
 			<h2>Keplr Wallet</h2>
 			<label>
-				<span>ChainId: {chain.chainId?.toLocaleUpperCase()} </span>
+				<span>
+					Chain: &nbsp;
+					<select
+					className="select"
+						value={selected}
+						onChange={(e) => setSelected(e.target.value)}
+					>
+						<option value="EARTH">EARTH</option>
+						<option value="MARS">MARS</option>
+					</select>
+				</span>  &nbsp;
 				<button onClick={connectWallet}>
 					{address ? "已连接" : "连接keplr"}
 				</button>
@@ -142,7 +164,7 @@ function Keplr() {
 				<div>
 					{balances?.map((item) => {
 						return (
-							<div className="ell">
+							<div className="ell" key={item.denom}>
 								{parseFloat(String(item?.amount / Math.pow(10, 6))).toFixed(2)}
 								&nbsp;
 								{item?.denom}
@@ -161,8 +183,7 @@ function Keplr() {
 					onChange={(e) => setRecipent(e.target.value)}
 				/>
 				&nbsp;
-				<button onClick={sendToken}>发送 10 token</button>
-				<div>hash: {sendHash}</div>
+				<button onClick={sendToken}>发送 10 {chain.feeCurrencies[0].coinMinimalDenom}</button>
 			</div>
 			<label>2、getTx()</label>
 			<div>
@@ -185,7 +206,7 @@ function Keplr() {
 					onChange={(e) => setIbcRecipent(e.target.value)}
 				/>
 				&nbsp;
-				<button onClick={sendIbcToken}>发送 10 token</button>
+				<button onClick={sendIbcToken}>发送 10 {chain.feeCurrencies[0].coinMinimalDenom}</button>
 			</div>
 		</div>
 	);

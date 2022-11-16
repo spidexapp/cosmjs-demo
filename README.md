@@ -7,13 +7,15 @@
 - [comsjs doc](https://cosmos.github.io/cosmjs/latest/stargate/index.html)
 - [example chain](https://github.com/spidexapp/planet)
 
+## Get start
+
 ```
  1、use ignite build your block chain or use the example chain
- 2、install keplr wallet and
- 3、use cosmjs
+ 2、install keplr wallet 
+ 3、use cosmjs finish the demo
 ```
 
-- Fork this repository to your local and by step
+## Fork this repository to your local and by step
 
 ```
    Add your chain to keplr
@@ -29,10 +31,14 @@
 - Finish the under task
 
 ```ts
+- connect/ disconnect
+- mnemonic wallet
 - faucet，
 - getHeight，
 - getBalance,
-- sign,
+- getBlock,
+- add chain to keplr,
+- connect keplr
 - sendToken,
 - sendIbctoken,
 - broadcastTx
