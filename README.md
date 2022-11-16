@@ -8,7 +8,7 @@
 - [cosmjs](https://github.com/cosmos/cosmjs)
 - [keplr doc](https://docs.keplr.app/)
 - [comsjs doc](https://cosmos.github.io/cosmjs/latest/stargate/index.html)
-- [example chain](https://github.com/spidexapp/planet)
+- [example chain planet](https://github.com/spidexapp/planet)
 - [about cosmos](https://daniel520.gitee.io/daniel-blog/zh/Block%20Chain/Cosmos/10.Cosmos%E7%99%BD%E7%9A%AE%E4%B9%A6.html#%E8%B7%A8%E9%93%BE%E9%80%9A%E4%BF%A1-ibc)
 
 ## Get start
@@ -22,15 +22,14 @@
 ## Fork this repository to your local and by step
 
 ```
+   Create chain by ignite
    Add your chain to keplr
       - update the chain config
-      - open https://docs.axelar.dev/resources/keplr
-      - put the chain config in the textarea and submit
-      - import your account by mnemonic (chain start will display)
+      - import your account by mnemonic 
       - look for your account
 ```
 ### keplr wallet
-<img width="361" alt="image" src="https://user-images.githubusercontent.com/14268015/201254328-008dbedd-524b-41a6-9e3e-52bd06999ecd.png">
+<img width="356" alt="image" src="https://user-images.githubusercontent.com/14268015/202112668-75c6a38d-5efe-430e-8fa2-aac6302ee434.png">
 
 - Finish the under task
 
