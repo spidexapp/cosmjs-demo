@@ -1,8 +1,8 @@
-## Cosmjs frontend
+## Cosmjs 前端实践
 
 <img width="1598" alt="image" src="https://user-images.githubusercontent.com/14268015/202108553-32bc10d3-e030-49a6-9fe3-50625be2f1a3.png">
 
-## These are used to resources
+## 前端资料
 
 - [ignite doc](https://docs.ignite.com)
 - [cosmjs](https://github.com/cosmos/cosmjs)
@@ -14,25 +14,24 @@
 ## Get start
 
 ```
- 1、use ignite build your block chain or use the example chain
- 2、install keplr wallet 
- 3、use cosmjs finish the demo
+ 1、用 ignite 构建区块链或者用示例
+ 2、安装 keplr 钱包 
+ 3、使用cosmjs 完成下面的 demo
 ```
 
-## Fork this repository to your local and by step
+## 克隆此仓库 按照步骤实现
 
 ```
-   Add your chain to keplr
-      - update the chain config
-      - open https://docs.axelar.dev/resources/keplr
-      - put the chain config in the textarea and submit
-      - import your account by mnemonic (chain start will display)
-      - look for your account
+   安装keplr
+      - 根据你创建的链修改config配置（默认则不用）
+      - 用axelar 添加（建议使用js 自行添加链到钱包） https://docs.axelar.dev/resources/keplr
+      - 导入助记词到钱包
+      - 切换到对应账户
 ```
-### keplr wallet
+### keplr 钱包
 <img width="361" alt="image" src="https://user-images.githubusercontent.com/14268015/201254328-008dbedd-524b-41a6-9e3e-52bd06999ecd.png">
 
-- Finish the under task
+## 请实现以下需求
 
 ```ts
 - connect/ disconnect
@@ -48,4 +47,4 @@
 - broadcastTx
 ```
 
-#### FAQ : If you have any question, please open issue
+#### FAQ : 如果有疑问，请提isuue 或者联系教研组
