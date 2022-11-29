@@ -14,8 +14,8 @@
 ## Get start
 
 ```
- 1、用 ignite 构建区块链或者用示例
- 2、安装 keplr 钱包 
+ 1、安装 keplr 钱包 
+ 2、添加链
  3、使用cosmjs 完成下面的 demo
 ```
 
@@ -43,7 +43,6 @@
 - add chain to keplr,
 - connect keplr
 - sendToken,
-- sendIbctoken,
 - broadcastTx
 ```
 
