@@ -1,13 +1,11 @@
 import { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { StargateClient } from "@cosmjs/stargate";
 import React, { useEffect, useState } from "react";
-import { useInterval } from "../Hooks/useInterval";
 import chain from "../config/osmosis";
+import { useInterval } from "../Hooks/useInterval";
 
 function Stargate() {
-	const [mnemonic, setMnemonic] = useState<any>(
-		"fashion poverty deer morning repeat option solve mandate injury slide soon boy hospital isolate plate lion range dilemma text job awkward solve street blue"
-	);
+	const [mnemonic, setMnemonic] = useState<any>();
 	const [address, setAddress] = useState<any>();
 	const [balance, setBalances] = useState<any>();
 	const [allBalance, setAllBalances] = useState<any>();
@@ -20,10 +18,9 @@ function Stargate() {
 	const [timestamp, setTimestamp] = useState(0);
 	useInterval(() => setTimestamp(new Date().getTime()), 1000);
 
+	// 连接
 	useEffect(() => {
-		if (!chain) {
-			return;
-		}
+		if (!chain) return;
 		connect();
 	}, [chain]);
 
@@ -32,7 +29,7 @@ function Stargate() {
 			return;
 		}
 		getBalance();
-	}, [timestamp,address, client]);
+	}, [timestamp, address, client]);
 
 	useEffect(() => {
 		if (!address || !client) {
@@ -41,59 +38,43 @@ function Stargate() {
 		getOthers();
 	}, [address, client]);
 
+	// 助记词钱包
 	const getAddressByMnemonic = async () => {
 		if (!mnemonic) {
 			return;
 		}
-		const wallet = await DirectSecp256k1HdWallet.fromMnemonic(mnemonic,{
-			prefix: "OSMO",
-		});
-		const [firstAccount]= await wallet.getAccounts();
 
-		setAddress(firstAccount.address);
+		// Todo
 	};
 
-	const getBalance = async ()=>{
-		const _balance = await client?.getBalance(
-			address,
-			chain.stakeCurrency.coinMinimalDenom
-		);
+	// 余额查询
+	const getBalance = async () => {
 
-		const _allBalance = await client?.getAllBalances(address);
+		//单币种查询
+		
+		// Todo
 
-		setAllBalances(_allBalance);
-		setBalances(_balance);
-	}
+		//所有余额查询
+		// Todo
+	};
 
+
+	// strageClient api
 	const getOthers = async () => {
 		if (!address) {
 			return;
 		}
-		const _height = await client?.getHeight();
-		
-		const _chainId = await client?.getChainId();
-		const _allBalance = await client?.getAllBalances(address);
-		const _accounts = await client?.getAccount(address);
-		const _block = await client?.getBlock(_height);
-
-		console.log(_allBalance);
-		setChainId(_chainId);
-		
-		setHeight(_height);
-		setAccount(_accounts);
-		setBlock(_block);
+		// Todo
 	};
 
+	// 连接
 	const connect = async () => {
-		const _strageClient = await StargateClient.connect(chain.rpc);
-		console.log(_strageClient);
-		setClient(_strageClient);
+		// Todo
 	};
 
+	// 断开
 	const disConnect = async () => {
-		const _strageClient = await client.disconnect();
-		// console.log(_strageClient)
-		setClient(_strageClient);
+		// Todo
 	};
 
 	return (
@@ -135,7 +116,10 @@ function Stargate() {
 			<hr />
 			<label>1、水龙头</label>
 			<div>
-				<span>Address: <b>{address}</b> </span> &nbsp;
+				<span>
+					Address: <b>{address}</b>{" "}
+				</span>{" "}
+				&nbsp;
 				{address && (
 					<a href="https://faucet.osmosis.zone/" target="_blank">
 						获取
