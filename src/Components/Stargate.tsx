@@ -137,7 +137,7 @@ function Stargate() {
 			<div>
 				<span>Address: <b>{address}</b> </span> &nbsp;
 				{address && (
-					<a href="http://localhost:4500/#/" target="_blank">
+					<a href="https://faucet.osmosis.zone/" target="_blank">
 						获取
 					</a>
 				)}
