@@ -2,7 +2,7 @@ import { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { StargateClient } from "@cosmjs/stargate";
 import React, { useEffect, useState } from "react";
 import { useInterval } from "../Hooks/useInterval";
-import chain from "../config/earth";
+import chain from "../config/osmosis";
 
 function Stargate() {
 	const [mnemonic, setMnemonic] = useState<any>(
@@ -45,8 +45,10 @@ function Stargate() {
 		if (!mnemonic) {
 			return;
 		}
-		const wallet = await DirectSecp256k1HdWallet.fromMnemonic(mnemonic);
-		const [firstAccount] = await wallet.getAccounts();
+		const wallet = await DirectSecp256k1HdWallet.fromMnemonic(mnemonic,{
+			prefix: "OSMO",
+		});
+		const [firstAccount]= await wallet.getAccounts();
 
 		setAddress(firstAccount.address);
 	};
@@ -98,7 +100,7 @@ function Stargate() {
 		<div className="stargate">
 			<h2>StargateClient</h2>
 			<label>
-				<span>Chain: EARTH </span>
+				<span>Chain: Osmosis </span>
 				<button onClick={client?.queryClient ? disConnect : connect}>
 					{client?.queryClient ? "断开" : "连接"}
 				</button>

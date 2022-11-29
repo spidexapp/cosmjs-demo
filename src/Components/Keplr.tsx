@@ -4,12 +4,11 @@ import {
 	SigningStargateClient,
 } from "@cosmjs/stargate";
 import React, { useEffect, useState } from "react";
-import earth from "../config/earth";
-import mars from "../config/mars";
+import osmo from "../config/osmosis";
 
 function Keplr() {
-	const [chain, setChain] = useState<any>(earth);
-	const [selected, setSelected] = useState<any>("EARTH");
+	const [chain, setChain] = useState<any>(osmo);
+	const [selected, setSelected] = useState<any>("OSMO");
 	const [client, setClient] = useState<any>();
 	const [address, setAddress] = useState<any>();
 
@@ -22,11 +21,7 @@ function Keplr() {
 	const [txRes, setTxRes] = useState<any>();
 
 	useEffect(() => {
-		if (selected === "EARTH") {
-			setChain(earth);
-		} else {
-			setChain(mars);
-		}
+		setChain(osmo);
 	}, [selected]);
 
 	useEffect(() => {
@@ -150,8 +145,9 @@ function Keplr() {
 						value={selected}
 						onChange={(e) => setSelected(e.target.value)}
 					>
-						<option value="EARTH">EARTH</option>
-						<option value="MARS">MARS</option>
+						<option value="OSMO">OSMO</option>
+						{/* <option value="MARS">MARS</option>
+						<option value="SPX">SPX</option> */}
 					</select>
 				</span>  &nbsp;
 				<button onClick={connectWallet}>
