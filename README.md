@@ -1,6 +1,7 @@
 ## Cosmjs 前端实践
 
-<img width="1598" alt="image" src="https://user-images.githubusercontent.com/14268015/202108553-32bc10d3-e030-49a6-9fe3-50625be2f1a3.png">
+<img width="1417" alt="image" src="https://user-images.githubusercontent.com/14268015/204499271-c5d6edd6-61bd-45c7-bd58-9e08131d7a9a.png">
+
 
 ## 前端资料
 
