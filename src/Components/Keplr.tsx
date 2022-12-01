@@ -13,10 +13,8 @@ function Keplr() {
 
 	const [balances, setBalances] = useState<any>();
 	const [recipent, setRecipent] = useState<any>();
-	const [ibcRecipent, setIbcRecipent] = useState<any>();
 	const [tx, setTx] = useState<any>();
 	const [sendHash, setSendHash] = useState<any>();
-	const [sendIbcHash, setSendIbcHash] = useState<any>();
 	const [txRes, setTxRes] = useState<any>();
 
 	useEffect(() => {
