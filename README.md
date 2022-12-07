@@ -4,10 +4,10 @@
 
 ## 基本要求
 ```
-   react 
-   cosmos 链的基础知识
-   Keplr chrome 插件
-   @cosmjs/stargate sdk
+   -react 
+   -cosmos 链的基础知识
+   -Keplr chrome 插件
+   -@cosmjs/stargate sdk
 
 ```
 
@@ -31,11 +31,11 @@
 ## 克隆此仓库 按照步骤实现
 
 ```
-      - 安装keplr
-      - 使用osmosis 测试链 链配置在config 目录
-      - 添加链到keplr, axelar 添加（建议使用js 自行添加） https://docs.axelar.dev/resources/keplr
-      - 导入助记词到钱包 / 或创建账户
-      - 拿到地址 水龙头获取token https://faucet.osmosis.zone/#/
+   - 安装keplr
+   - 使用osmosis 测试链 链配置在config 目录
+   - 添加链到keplr, axelar 添加（建议使用js 自行添加） https://docs.axelar.dev/resources/keplr
+   - 导入助记词到钱包 / 或创建账户
+   - 拿到地址 水龙头获取token https://faucet.osmosis.zone/#/
 ```
 
 
