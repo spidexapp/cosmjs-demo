@@ -2,6 +2,15 @@
 
 <img width="1417" alt="image" src="https://user-images.githubusercontent.com/14268015/204499271-c5d6edd6-61bd-45c7-bd58-9e08131d7a9a.png">
 
+## 基本要求
+```
+   react 
+   cosmos 链的基础知识
+   Keplr chrome 插件
+   @cosmjs/stargate sdk
+
+```
+
 
 ## 前端资料
 
@@ -15,36 +24,40 @@
 ## Get start
 
 ```
- 1、安装 keplr 钱包 
- 2、添加链
- 3、使用cosmjs 完成下面的 demo
+ 1、npm install 
+ 2、yarn start
 ```
 
 ## 克隆此仓库 按照步骤实现
 
 ```
-   安装keplr
-      - 根据你创建的链修改config配置（默认则不用）
-      - 用axelar 添加（建议使用js 自行添加链到钱包） https://docs.axelar.dev/resources/keplr
-      - 导入助记词到钱包
-      - 切换到对应账户
+      - 安装keplr
+      - 使用osmosis 测试链 链配置在config 目录
+      - 添加链到keplr, axelar 添加（建议使用js 自行添加） https://docs.axelar.dev/resources/keplr
+      - 导入助记词到钱包 / 或创建账户
+      - 拿到地址 水龙头获取token https://faucet.osmosis.zone/#/
 ```
-### keplr 钱包
-<img width="361" alt="image" src="https://user-images.githubusercontent.com/14268015/201254328-008dbedd-524b-41a6-9e3e-52bd06999ecd.png">
+
 
 ## 请实现以下需求
 
+### 
+
 ```ts
-- connect/ disconnect
-- mnemonic wallet
-- faucet，
-- getHeight，
-- getBalance,
-- getBlock,
-- add chain to keplr,
-- connect keplr
-- sendToken,
-- broadcastTx
+   基本的查询api实现 和 发送交易、交易hash 查询
+      - connect/ disconnect
+      - mnemonic wallet
+      - faucet，
+      - getHeight，
+      - getBalance,
+      - getBlock,
+      - add chain to keplr,
+      - connect keplr
+      - sendToken,
+      - broadcastTx
 ```
 
-#### FAQ : 如果有疑问，请提isuue 或者联系教研组
+### keplr 钱包
+<img width="361" alt="image" src="https://user-images.githubusercontent.com/14268015/201254328-008dbedd-524b-41a6-9e3e-52bd06999ecd.png">
+
+#### FAQ : 如果有疑问，请联系教研组
