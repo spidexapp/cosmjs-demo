@@ -4,10 +4,10 @@
 
 ## 基本要求
 ```
-   -react 
-   -cosmos 链的基础知识
-   -Keplr chrome 插件
-   -@cosmjs/stargate sdk
+   - react 
+   - cosmos 链的基础知识
+   - @cosmjs/stargate sdk
+   - Keplr chrome 插件
 
 ```
 
