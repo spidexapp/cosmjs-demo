@@ -17,10 +17,12 @@ function Keplr() {
 	const [sendHash, setSendHash] = useState<any>();
 	const [txRes, setTxRes] = useState<any>();
 
+	// 初始化 chain
 	useEffect(() => {
 		setChain(osmo);
 	}, [selected]);
 
+	// 查寻余额
 	useEffect(() => {
 		if (!address && !client) {
 			return;
@@ -28,49 +30,28 @@ function Keplr() {
 		getBalance();
 	}, [address, client, sendHash]);
 
-	//所有余额查询
+	// 余额查询  Todo
 	const getBalance = async () => {
-		if (client) {
-			// todo
-			// setBalances(_balances);
-		}
+		
 	};
 
+	// txhash查询  Todo
 	const getTx = async () => {
-		if (client) {
-			// todo
-			// setTxRes(txRes);
-		}
+		
 	};
 
-	// 转账
+	// 转账 Todo
 	const sendToken = async () => {
-		if (client) {
-			// 构造消息
-			//todo
-
-			try {
-				// 发送token
-				//todo
-
-				// assertIsDeliverTxSuccess(result);
-				
-			} catch (error) {
-				alert("失败! " + error.toString());
-				console.error(error);
-			}
-		}
+		
 	};
 
+	// 连接keplr钱包  Todo
 	const connectWallet = async () => {
-		// init keplr wallet
 		if (!window.keplr || !window.getOfflineSigner) {
 			return;
 		}
 
 		// add your chain to keplr
-		
-		// console.log(client);
 		// setAddress(accounts[0].address);
 		// setClient(client);
 	};
@@ -87,8 +68,7 @@ function Keplr() {
 						onChange={(e) => setSelected(e.target.value)}
 					>
 						<option value="OSMO">OSMO</option>
-						{/* <option value="MARS">MARS</option>
-						<option value="SPX">SPX</option> */}
+						<option value="SPX">SPX</option>
 					</select>
 				</span>{" "}
 				&nbsp;

@@ -19,7 +19,9 @@ const App = () => {
 						<li>查余额</li>		
 						<li>查账户</li>	
 						<li>查高度</li>
-						<li>查区块</li>		
+						<li>查区块</li>	
+						<li>查所有余额</li>
+						<li>查交易频次</li>					
 					</ul>
 					<p>-- Keplr --</p>
 					<ul>

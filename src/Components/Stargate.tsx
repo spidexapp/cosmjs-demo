@@ -1,5 +1,3 @@
-import { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
-import { StargateClient } from "@cosmjs/stargate";
 import React, { useEffect, useState } from "react";
 import chain from "../config/osmosis";
 import { useInterval } from "../Hooks/useInterval";
@@ -24,6 +22,7 @@ function Stargate() {
 		connect();
 	}, [chain]);
 
+	// 余额查询
 	useEffect(() => {
 		if (!address || !client) {
 			return;
@@ -31,6 +30,7 @@ function Stargate() {
 		getBalance();
 	}, [timestamp, address, client]);
 
+	// stargate基础api
 	useEffect(() => {
 		if (!address || !client) {
 			return;
@@ -38,44 +38,30 @@ function Stargate() {
 		getOthers();
 	}, [address, client]);
 
-	// 助记词钱包
-	const getAddressByMnemonic = async () => {
-		if (!mnemonic) {
-			return;
-		}
+	// 助记词钱包 Todo
+	const getAddressByMnemonic = async () => {};
 
-		// Todo
-	};
-
-	// 余额查询
+	// 余额查询 Todo
 	const getBalance = async () => {
-
-		//单币种查询
-		
-		// Todo
-
-		//所有余额查询
-		// Todo
+		//单币种查询 Todo
 	};
 
-
-	// strageClient api
+	// strageClient 基础 api 使用 Todo
 	const getOthers = async () => {
-		if (!address) {
-			return;
-		}
-		// Todo
+		// 1、getChainId
+		// 2、getBalance
+		// 3、getAccount
+		// 4、getHeight
+		// 5、getBlock
+		// 6、getAllBalances
+		// 7、getSequence
 	};
 
-	// 连接
-	const connect = async () => {
-		// Todo
-	};
+	// connect client Todo
+	const connect = async () => {};
 
-	// 断开
-	const disConnect = async () => {
-		// Todo
-	};
+	// disconnect client Todo
+	const disConnect = async () => {};
 
 	return (
 		<div className="stargate">
@@ -101,17 +87,8 @@ function Stargate() {
 			</div>
 			<div className="weight">
 				<span style={{ whiteSpace: "nowrap" }}>余额: &nbsp;</span>
-				<div>
-					{allBalance?.map((item) => {
-						return (
-							<div className="ell" key={item.denom}>
-								{parseFloat(String(item?.amount / Math.pow(10, 6))).toFixed(2)}
-								&nbsp;
-								{item?.denom}
-							</div>
-						);
-					})}
-				</div>
+				{parseFloat(String(balance?.amount / Math.pow(10, 6))).toFixed(2)}
+				<span> {balance?.denom}</span>
 			</div>
 			<hr />
 			<label>1、水龙头</label>
@@ -143,7 +120,21 @@ function Stargate() {
 			<div>Height: {height}</div>
 			<label>6、getBlock()</label>
 			<div>Blockhash:{block?.id}</div>
-			{/* <label>6、getQueryClient()</label>
+			<label>7、getAllBalances()</label>
+			<div>
+					{allBalance?.map((item) => {
+						return (
+							<div className="ell" key={item.denom}>
+								{parseFloat(String(item?.amount / Math.pow(10, 6))).toFixed(2)}
+								&nbsp;
+								{item?.denom}
+							</div>
+						);
+					})}
+				</div>
+			<label>8、getSequence()</label>
+			<div></div>
+			{/* <label>9、getQueryClient()</label>
 			<div>queryClient: {JSON.stringify(queryAccount?.toString())}</div> */}
 		</div>
 	);
