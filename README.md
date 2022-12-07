@@ -2,6 +2,15 @@
 
 <img width="1417" alt="image" src="https://user-images.githubusercontent.com/14268015/204499271-c5d6edd6-61bd-45c7-bd58-9e08131d7a9a.png">
 
+## 相关资料
+
+- [ignite doc](https://docs.ignite.com)
+- [cosmjs](https://github.com/cosmos/cosmjs)
+- [keplr doc](https://docs.keplr.app/)
+- [comsjs doc](https://cosmos.github.io/cosmjs/latest/stargate/index.html)
+- [example chain](https://github.com/spidexapp/planet)
+- [about cosmos](https://daniel520.gitee.io/daniel-blog/zh/Block%20Chain/Cosmos/10.Cosmos%E7%99%BD%E7%9A%AE%E4%B9%A6.html#%E8%B7%A8%E9%93%BE%E9%80%9A%E4%BF%A1-ibc)
+
 ## 基本要求
 ```
    - react 
@@ -11,15 +20,6 @@
 
 ```
 
-
-## 前端资料
-
-- [ignite doc](https://docs.ignite.com)
-- [cosmjs](https://github.com/cosmos/cosmjs)
-- [keplr doc](https://docs.keplr.app/)
-- [comsjs doc](https://cosmos.github.io/cosmjs/latest/stargate/index.html)
-- [example chain](https://github.com/spidexapp/planet)
-- [about cosmos](https://daniel520.gitee.io/daniel-blog/zh/Block%20Chain/Cosmos/10.Cosmos%E7%99%BD%E7%9A%AE%E4%B9%A6.html#%E8%B7%A8%E9%93%BE%E9%80%9A%E4%BF%A1-ibc)
 
 ## Get start
 
