@@ -5,6 +5,7 @@ import {
 } from "@cosmjs/stargate";
 import React, { useEffect, useState } from "react";
 import osmo from "../config/osmosis";
+import spidex from "../config/spidex";
 
 function Keplr() {
 	const [chain, setChain] = useState<any>(osmo);
@@ -141,7 +142,7 @@ function Keplr() {
 				<span>
 					Chain: &nbsp;
 					<select
-					className="select"
+						className="select"
 						value={selected}
 						onChange={(e) => setSelected(e.target.value)}
 					>
