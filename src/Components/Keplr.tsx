@@ -7,7 +7,7 @@ import osmo from "../config/osmosis";
 
 function Keplr() {
 	const [chain, setChain] = useState<any>(osmo);
-	const [selected, setSelected] = useState<any>("OSMO");
+	const [selected, setSelected] = useState<string>("OSMO");
 	const [client, setClient] = useState<any>();
 	const [address, setAddress] = useState<any>();
 
@@ -27,22 +27,69 @@ function Keplr() {
 		if (!address && !client) {
 			return;
 		}
-		getBalance();
+		getBalances();
 	}, [address, client, sendHash]);
 
 	// 余额查询  Todo
-	const getBalance = async () => {
-		
+	const getBalances = async () => {
+		if (client) {
+			const _balance = await client.getAllBalances(address);
+			console.log(_balance);
+			setBalances(_balance);
+		}
 	};
 
 	// txhash查询  Todo
 	const getTx = async () => {
-		
+		const result = await client.getTx(tx);
+		console.log(result);
+		setTxRes(result);
 	};
 
 	// 转账 Todo
 	const sendToken = async () => {
-		
+		if (!client) return;
+
+		const convertAmount = 10 * 1e6;
+		const amount = [
+			{
+				denom: chain.stakeCurrency.coinMinimalDenom,
+				amount: convertAmount.toString(),
+			},
+		];
+
+		const fee = {
+			amount: [
+				{
+					denom: chain.stakeCurrency.coinMinimalDenom,
+					amount: chain.gasPriceStep.average,
+				},
+			],
+			gas: "200000",
+		};
+
+		try {
+			const result = await client.sendTokens(
+				address,
+				recipent,
+				amount,
+				fee,
+				""
+			);
+			assertIsDeliverTxSuccess(result);
+			console.log(result);
+			if (result.code == 0) {
+				alert(
+					"transfer success, height:" +
+						result.height +
+						"hash:" +
+						result.transactionHash
+				);
+				setTx(result.transactionHash);
+			}
+		} catch (e) {
+			console.log(e);
+		}
 	};
 
 	// 连接keplr钱包  Todo
@@ -51,9 +98,20 @@ function Keplr() {
 			return;
 		}
 
+		await window.keplr.experimentalSuggestChain(chain);
+		await window.keplr.enable(chain.chainId);
+
+		const offlineSigner = window.keplr.getOfflineSigner(chain.chainId);
+
+		const accounts = await offlineSigner.getAccounts();
+		const client = await SigningStargateClient.connectWithSigner(
+			chain.rpc,
+			offlineSigner
+		);
+
 		// add your chain to keplr
-		// setAddress(accounts[0].address);
-		// setClient(client);
+		setAddress(accounts[0].address);
+		setClient(client);
 	};
 
 	return (
@@ -107,12 +165,7 @@ function Keplr() {
 			</div>
 			<label>2、getTx()</label>
 			<div>
-				<input
-					type="text"
-					value={tx}
-					placeholder="tx hash"
-					onChange={(e) => setTx(e.target.value)}
-				/>
+				<span>{tx}</span>
 				&nbsp;
 				<button onClick={getTx}>查询</button>
 			</div>

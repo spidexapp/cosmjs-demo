@@ -1,17 +1,28 @@
+import { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
+import {
+	Account,
+	Block,
+	Coin,
+	SequenceResponse,
+	StargateClient,
+} from "@cosmjs/stargate";
 import React, { useEffect, useState } from "react";
 import chain from "../config/osmosis";
 import { useInterval } from "../Hooks/useInterval";
 
 function Stargate() {
-	const [mnemonic, setMnemonic] = useState<any>();
-	const [address, setAddress] = useState<any>();
-	const [balance, setBalances] = useState<any>();
-	const [allBalance, setAllBalances] = useState<any>();
+	const [mnemonic, setMnemonic] = useState<string>(
+		"sugar protect smoke mammal index hood chief attitude magic rather kangaroo ginger"
+	);
+	const [address, setAddress] = useState<string>();
+	const [balance, setBalance] = useState<Coin>();
+	const [allBalance, setAllBalances] = useState<Coin[]>();
 	const [client, setClient] = useState<any>();
-	const [height, setHeight] = useState<any>();
-	const [chainId, setChainId] = useState<any>();
-	const [account, setAccount] = useState<any>();
-	const [block, setBlock] = useState<any>();
+	const [height, setHeight] = useState<number>();
+	const [chainId, setChainId] = useState<string>();
+	const [account, setAccount] = useState<Account>();
+	const [block, setBlock] = useState<Block>();
+	const [sequence, setSequence] = useState<SequenceResponse>();
 
 	const [timestamp, setTimestamp] = useState(0);
 	useInterval(() => setTimestamp(new Date().getTime()), 1000);
@@ -22,46 +33,80 @@ function Stargate() {
 		connect();
 	}, [chain]);
 
+	useEffect(() => {
+		if (!mnemonic) return;
+		getAddressByMnemonic();
+	}, [mnemonic]);
+
 	// 余额查询
 	useEffect(() => {
-		if (!address || !client) {
-			return;
-		}
+		if (!address || !client) return;
 		getBalance();
 	}, [timestamp, address, client]);
 
+
 	// stargate基础api
 	useEffect(() => {
-		if (!address || !client) {
-			return;
-		}
+		if (!address || !client) return;
 		getOthers();
 	}, [address, client]);
 
 	// 助记词钱包 Todo
-	const getAddressByMnemonic = async () => {};
+	const getAddressByMnemonic = async () => {
+		const wallet = await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, {
+			prefix: "osmo",
+		});
+		const [firstAccount] = await wallet.getAccounts();
+		setAddress(firstAccount.address);
+	};
 
 	// 余额查询 Todo
 	const getBalance = async () => {
 		//单币种查询 Todo
+		if (client) {
+			const _balance = await client.getBalance(
+				address,
+				chain.stakeCurrency.coinMinimalDenom
+			);
+			setBalance(_balance);
+		}
 	};
 
 	// strageClient 基础 api 使用 Todo
 	const getOthers = async () => {
-		// 1、getChainId
-		// 2、getBalance
-		// 3、getAccount
-		// 4、getHeight
-		// 5、getBlock
-		// 6、getAllBalances
-		// 7、getSequence
+		const _chainId = await client.getChainId();
+		const _account = await client.getAccount(address);
+		const _height = await client.getHeight();
+		const _allBalance = await client?.getAllBalances(address);
+		const _block = await client?.getBlock(_height);
+		const _sequence = await client?.getSequence(address);
+
+		setAccount(_account);
+		setChainId(_chainId);
+		setHeight(_height);
+		setAllBalances(_allBalance);
+		setBlock(_block);
+		setSequence(_sequence);
 	};
 
 	// connect client Todo
-	const connect = async () => {};
+	const connect = async () => {
+		const _stargeClient = await StargateClient.connect(chain.rpc);
+		setClient(_stargeClient);
+	};
 
 	// disconnect client Todo
-	const disConnect = async () => {};
+	const disConnect = async () => {
+		const _strageClient = await client.disconnect();
+		setClient(_strageClient);
+		setAccount(null);
+		setChainId(null);
+		setHeight(null);
+		setBalance(null);
+		setAllBalances(null);
+		setBlock(null);
+		setSequence(null);
+	};
 
 	return (
 		<div className="stargate">
@@ -87,15 +132,23 @@ function Stargate() {
 			</div>
 			<div className="weight">
 				<span style={{ whiteSpace: "nowrap" }}>余额: &nbsp;</span>
-				{parseFloat(String(balance?.amount / Math.pow(10, 6))).toFixed(2)}
-				<span> {balance?.denom}</span>
+				{balance?.amount && (
+					<>
+						<span>
+							{parseFloat(
+								String(Number(balance?.amount) / Math.pow(10, 6))
+							).toFixed(2)}
+						</span>
+						<span> {balance?.denom}</span>
+					</>
+				)}
 			</div>
 			<hr />
 			<label>1、水龙头</label>
 			<div>
 				<span>
-					Address: <b>{address}</b>{" "}
-				</span>{" "}
+					Address: <b>{address}</b>
+				</span>
 				&nbsp;
 				{address && (
 					<a href="https://faucet.osmosis.zone/" target="_blank">
@@ -110,11 +163,24 @@ function Stargate() {
 			<label>3、getBalance()</label>
 			<div>
 				<span>Balance: </span>
-				{parseFloat(String(balance?.amount / Math.pow(10, 6))).toFixed(2)}
-				<span> {balance?.denom}</span>
+				{balance?.amount && (
+					<>
+						<span>
+							{parseFloat(
+								String(Number(balance?.amount) / Math.pow(10, 6))
+							).toFixed(2)}
+						</span>
+						<span> {balance?.denom}</span>
+					</>
+				)}
 			</div>
 			<label>4、getAccount()</label>
-			<div>{JSON.stringify(account)}</div>
+			<div>
+				<div>address: {account?.address}</div>
+				<div>pubkey: {account?.pubkey.value}</div>
+				<div>accountNumber: {account?.accountNumber}</div>
+				<div>sequence: {account?.sequence}</div>
+			</div>
 
 			<label>5、getHeight()</label>
 			<div>Height: {height}</div>
@@ -122,18 +188,23 @@ function Stargate() {
 			<div>Blockhash:{block?.id}</div>
 			<label>7、getAllBalances()</label>
 			<div>
-					{allBalance?.map((item) => {
-						return (
-							<div className="ell" key={item.denom}>
-								{parseFloat(String(item?.amount / Math.pow(10, 6))).toFixed(2)}
-								&nbsp;
-								{item?.denom}
-							</div>
-						);
-					})}
-				</div>
+				{allBalance?.map((item) => {
+					return (
+						<div className="ell" key={item.denom}>
+							{parseFloat(
+								String(Number(item?.amount) / Math.pow(10, 6))
+							).toFixed(2)}
+							&nbsp;
+							{item?.denom}
+						</div>
+					);
+				})}
+			</div>
 			<label>8、getSequence()</label>
-			<div></div>
+			<div>
+				<div>accountNumber :{sequence?.accountNumber}</div>
+				<div>sequence :{sequence?.sequence}</div>
+			</div>
 			{/* <label>9、getQueryClient()</label>
 			<div>queryClient: {JSON.stringify(queryAccount?.toString())}</div> */}
 		</div>
