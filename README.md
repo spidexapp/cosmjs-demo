@@ -29,31 +29,19 @@
 ## 克隆此仓库 按照步骤实现
 
 ```
-   - 安装keplr
-   - 使用osmosis 测试链 链配置在config 目录
-   - 添加链到keplr, axelar 添加（建议使用js 自行添加） https://docs.axelar.dev/resources/keplr
-   - 导入助记词到钱包 / 或创建账户
-   - 拿到地址 水龙头获取token https://faucet.osmosis.zone/#/
+   - stargate 组件  
+      - connect / disconnect
+      - 创建账号
+      - 水龙头获取osmo token
+      - 查询地址余额
+      - stargate 基本查询api
+   - keplr 组件
+      - 添加链到keplr
+      - 查询余额
+      - 发送交易
+      - 查询交易hash
 ```
 
-
-## 请实现以下需求
-
-### 
-
-```ts
-   基本的查询api实现 和 发送交易、交易hash 查询
-      - connect/ disconnect
-      - create mnemonic wallet
-      - faucet，
-      - getHeight，
-      - getBalance,
-      - getBlock,
-      - add chain to keplr,
-      - connect keplr
-      - sendToken,
-      - broadcastTx
-```
 
 ### keplr 钱包
 <img width="359" alt="image" src="https://user-images.githubusercontent.com/14268015/206352651-b267cd83-ffde-4d06-9f7d-53df7ded10eb.png">
