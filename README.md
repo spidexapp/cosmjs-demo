@@ -1,6 +1,6 @@
 ## Cosmjs 前端实践
 
-<img width="1417" alt="image" src="https://user-images.githubusercontent.com/14268015/204499271-c5d6edd6-61bd-45c7-bd58-9e08131d7a9a.png">
+<img width="640" alt="image" src="https://user-images.githubusercontent.com/14268015/206352501-8e33e87e-f329-4a88-81b7-fceb8f1519ab.png">
 
 ## 相关资料
 
@@ -46,7 +46,7 @@
 ```ts
    基本的查询api实现 和 发送交易、交易hash 查询
       - connect/ disconnect
-      - mnemonic wallet
+      - create mnemonic wallet
       - faucet，
       - getHeight，
       - getBalance,
