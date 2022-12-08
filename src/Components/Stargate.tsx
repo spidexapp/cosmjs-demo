@@ -11,9 +11,7 @@ import chain from "../config/osmosis";
 import { useInterval } from "../Hooks/useInterval";
 
 function Stargate() {
-	const [mnemonic, setMnemonic] = useState<string>(
-		"sugar protect smoke mammal index hood chief attitude magic rather kangaroo ginger"
-	);
+	const [mnemonic, setMnemonic] = useState<string>(localStorage.getItem("mnemonic"));
 	const [address, setAddress] = useState<string>();
 	const [balance, setBalance] = useState<Coin>();
 	const [allBalance, setAllBalances] = useState<Coin[]>();
@@ -44,12 +42,22 @@ function Stargate() {
 		getBalance();
 	}, [timestamp, address, client]);
 
-
-	// stargate基础api
+	// 实现stargate基础api
 	useEffect(() => {
 		if (!address || !client) return;
 		getOthers();
 	}, [address, client]);
+
+	// 创建账户
+	const createAccount = async () => {
+		const myAccount: any = await DirectSecp256k1HdWallet.generate(12, {
+			prefix: "osmo",
+		});
+
+		localStorage.setItem("mnemonic", myAccount?.secret.data)
+
+		setMnemonic(myAccount?.secret.data);
+	};
 
 	// 助记词钱包 Todo
 	const getAddressByMnemonic = async () => {
@@ -74,12 +82,15 @@ function Stargate() {
 
 	// strageClient 基础 api 使用 Todo
 	const getOthers = async () => {
+		console.log(111)
 		const _chainId = await client.getChainId();
 		const _account = await client.getAccount(address);
 		const _height = await client.getHeight();
 		const _allBalance = await client?.getAllBalances(address);
 		const _block = await client?.getBlock(_height);
 		const _sequence = await client?.getSequence(address);
+
+		console.log(_chainId)
 
 		setAccount(_account);
 		setChainId(_chainId);
@@ -124,10 +135,10 @@ function Stargate() {
 						type="text"
 						value={mnemonic}
 						placeholder="mnemonic"
-						style={{ width: "500px" }}
+						style={{ width: "400px" }}
 						onChange={(e) => setMnemonic(e.target.value.trim())}
 					/>
-					<button onClick={getAddressByMnemonic}>Add wallet</button>
+					<button onClick={createAccount}>创建账户</button>
 				</span>
 				&nbsp;&nbsp;
 			</div>
@@ -140,7 +151,7 @@ function Stargate() {
 								String(Number(balance?.amount) / Math.pow(10, 6))
 							).toFixed(2)}
 						</span>
-						<span> {balance?.denom}</span>
+						<span>{balance?.denom}</span>
 					</>
 				)}
 			</div>
@@ -178,7 +189,6 @@ function Stargate() {
 			<label>4、getAccount()</label>
 			<div>
 				<div>address: {account?.address}</div>
-				<div>pubkey: {account?.pubkey.value}</div>
 				<div>accountNumber: {account?.accountNumber}</div>
 				<div>sequence: {account?.sequence}</div>
 			</div>
