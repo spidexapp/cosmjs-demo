@@ -48,75 +48,23 @@ function Stargate() {
 		getOthers();
 	}, [address, client]);
 
-	// 创建账户
-	const createAccount = async () => {
-		const myAccount: any = await DirectSecp256k1HdWallet.generate(12, {
-			prefix: "osmo",
-		});
+	// 创建账户 Todo
+	const createAccount = async () => {};
 
-		localStorage.setItem("mnemonic", myAccount?.secret.data)
-
-		setMnemonic(myAccount?.secret.data);
-	};
-
-	// 助记词钱包 Todo
-	const getAddressByMnemonic = async () => {
-		const wallet = await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, {
-			prefix: "osmo",
-		});
-		const [firstAccount] = await wallet.getAccounts();
-		setAddress(firstAccount.address);
-	};
+	// 通过助记词钱包获得地址 Todo
+	const getAddressByMnemonic = async () => {}
 
 	// 余额查询 Todo
-	const getBalance = async () => {
-		//单币种查询 Todo
-		if (client) {
-			const _balance = await client.getBalance(
-				address,
-				chain.stakeCurrency.coinMinimalDenom
-			);
-			setBalance(_balance);
-		}
-	};
+	const getBalance = async () => {};
 
 	// strageClient 基础 api 使用 Todo
-	const getOthers = async () => {
-		const _chainId = await client.getChainId();
-		const _account = await client.getAccount(address);
-		const _height = await client.getHeight();
-		const _allBalance = await client?.getAllBalances(address);
-		const _block = await client?.getBlock(_height);
-		const _sequence = await client?.getSequence(address);
-
-		console.log(_chainId)
-
-		setAccount(_account);
-		setChainId(_chainId);
-		setHeight(_height);
-		setAllBalances(_allBalance);
-		setBlock(_block);
-		setSequence(_sequence);
-	};
+	const getOthers = async () => {};
 
 	// connect client Todo
-	const connect = async () => {
-		const _stargeClient = await StargateClient.connect(chain.rpc);
-		setClient(_stargeClient);
-	};
+	const connect = async () => {};
 
 	// disconnect client Todo
-	const disConnect = async () => {
-		const _strageClient = await client.disconnect();
-		setClient(_strageClient);
-		setAccount(null);
-		setChainId(null);
-		setHeight(null);
-		setBalance(null);
-		setAllBalances(null);
-		setBlock(null);
-		setSequence(null);
-	};
+	const disConnect = async () => {};
 
 	return (
 		<div className="stargate">

@@ -41,81 +41,16 @@ function Keplr() {
 		setBalance(_balance);
 	};
 
+	// 连接keplr钱包  Todo
+	const connectWallet = async () => {};
+
 	// txhash查询  Todo
-	const getTx = async () => {
-		if (!tx) return;
-		const result = await client.getTx(tx);
-		setTxRes(result);
-	};
+	const getTx = async () => {};
 
 	// 转账 Todo
-	const sendToken = async () => {
-		if (!client || !recipent || !address) return;
+	const sendToken = async () => {};
 
-		const convertAmount = 10 * 1e6;
-		const amount = [
-			{
-				denom: chain.stakeCurrency.coinMinimalDenom,
-				amount: convertAmount.toString(),
-			},
-		];
-
-		const fee = {
-			amount: [
-				{
-					denom: chain.stakeCurrency.coinMinimalDenom,
-					amount: 0.025,
-				},
-			],
-			gas: "200000",
-		};
-
-		try {
-			const result = await client.sendTokens(
-				address,
-				recipent,
-				amount,
-				fee,
-				""
-			);
-			assertIsDeliverTxSuccess(result);
-			console.log(result);
-			if (result.code == 0) {
-				alert(
-					"transfer success, height:" +
-						result.height +
-						"hash:" +
-						result.transactionHash
-				);
-				setTx(result.transactionHash);
-			}
-		} catch (e) {
-			console.log(e);
-		}
-	};
-
-	// 连接keplr钱包  Todo
-	const connectWallet = async () => {
-		if (!window.keplr || !window.getOfflineSigner) {
-			return;
-		}
-
-		await window.keplr.experimentalSuggestChain(chain);
-		await window.keplr.enable(chain.chainId);
-
-		const offlineSigner = window.keplr.getOfflineSigner(chain.chainId);
-
-		const accounts = await offlineSigner.getAccounts();
-		const client = await SigningStargateClient.connectWithSigner(
-			chain.rpc,
-			offlineSigner
-		);
-
-		// add your chain to keplr
-		setAddress(accounts[0].address);
-		setClient(client);
-	};
-
+	
 	return (
 		<div className="keplr">
 			<h2>Keplr Wallet</h2>
@@ -182,19 +117,6 @@ function Keplr() {
 					</>
 				)}
 			</div>
-			{/* <label>3、sendIbcTokens() & broadcastTx</label>
-			<div>
-				<input
-					type="text"
-					value={ibcRecipent}
-					placeholder="address"
-					onChange={(e) => setIbcRecipent(e.target.value)}
-				/>
-				&nbsp;
-				<button onClick={sendIbcToken}>
-					发送 10 {chain.feeCurrencies[0].coinMinimalDenom}
-				</button>
-			</div> */}
 		</div>
 	);
 }
