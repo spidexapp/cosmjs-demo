@@ -14,7 +14,7 @@ const App = () => {
 					<p>-- Stargate --</p>
 					<ul>
 						<li>连接/断开</li>
-						<li>助记词</li>
+						<li>创建账户</li>
 						<li>水龙头</li>
 						<li>查余额</li>		
 						<li>查账户</li>	
@@ -27,10 +27,10 @@ const App = () => {
 					<ul>
 						<li>添加链到keplr</li>
 						<li>连接钱包</li>
-						<li>sendToken</li>
-						<li>sendIBCToken</li>
-						<li>boardcastTx</li>
-						<li>getTx</li>
+						<li>实现转账</li>
+						{/* <li>sendIBCToken</li> */}
+						<li>广播</li>
+						<li>交易hash查询</li>
 					</ul>
 				</div>
 				<div className="right">
