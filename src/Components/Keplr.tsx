@@ -14,7 +14,7 @@ function Keplr() {
 
 	const [balance, setBalance] = useState<any>();
 	const [recipent, setRecipent] = useState<any>(
-		"osmo13t3e9s7h7ukwfq33y7pdvaxk26gx5zv2c0lz0w"
+		"osmo1r9ufesd4ja09g4rcxxetpx675eu09m45q05wv7"
 	);
 	const [tx, setTx] = useState<any>();
 	const [sendHash, setSendHash] = useState<any>();
