@@ -58,6 +58,7 @@
 ```
 
 ### keplr 钱包
-<img width="361" alt="image" src="https://user-images.githubusercontent.com/14268015/201254328-008dbedd-524b-41a6-9e3e-52bd06999ecd.png">
+<img width="359" alt="image" src="https://user-images.githubusercontent.com/14268015/206352651-b267cd83-ffde-4d06-9f7d-53df7ded10eb.png">
+
 
 #### FAQ : 如果有疑问，请联系教研组
