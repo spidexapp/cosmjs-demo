@@ -82,7 +82,6 @@ function Stargate() {
 
 	// strageClient 基础 api 使用 Todo
 	const getOthers = async () => {
-		console.log(111)
 		const _chainId = await client.getChainId();
 		const _account = await client.getAccount(address);
 		const _height = await client.getHeight();
