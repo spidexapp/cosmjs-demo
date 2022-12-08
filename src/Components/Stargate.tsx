@@ -124,6 +124,7 @@ function Stargate() {
 						type="text"
 						value={mnemonic}
 						placeholder="mnemonic"
+						style={{ width: "500px" }}
 						onChange={(e) => setMnemonic(e.target.value.trim())}
 					/>
 					<button onClick={getAddressByMnemonic}>Add wallet</button>

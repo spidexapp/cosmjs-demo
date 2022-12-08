@@ -3,52 +3,54 @@ import {
 	SigningStargateClient,
 } from "@cosmjs/stargate";
 import React, { useEffect, useState } from "react";
+import type { ChainInfo } from "@keplr-wallet/types";
 import osmo from "../config/osmosis";
 
 function Keplr() {
-	const [chain, setChain] = useState<any>(osmo);
+	const [chain, setChain] = useState<ChainInfo>(osmo);
 	const [selected, setSelected] = useState<string>("OSMO");
 	const [client, setClient] = useState<any>();
 	const [address, setAddress] = useState<any>();
 
-	const [balances, setBalances] = useState<any>();
-	const [recipent, setRecipent] = useState<any>();
+	const [balance, setBalance] = useState<any>();
+	const [recipent, setRecipent] = useState<any>(
+		"osmo13t3e9s7h7ukwfq33y7pdvaxk26gx5zv2c0lz0w"
+	);
 	const [tx, setTx] = useState<any>();
 	const [sendHash, setSendHash] = useState<any>();
 	const [txRes, setTxRes] = useState<any>();
 
 	// 初始化 chain
 	useEffect(() => {
-		setChain(osmo);
-	}, [selected]);
+		connectWallet();
+	}, [chain]);
 
-	// 查寻余额
+	// 查余额
 	useEffect(() => {
-		if (!address && !client) {
-			return;
-		}
+		if (!address && !client) return;
 		getBalances();
 	}, [address, client, sendHash]);
 
 	// 余额查询  Todo
 	const getBalances = async () => {
-		if (client) {
-			const _balance = await client.getAllBalances(address);
-			console.log(_balance);
-			setBalances(_balance);
-		}
+		if (!client) return;
+		const _balance = await client.getBalance(
+			address,
+			chain.stakeCurrency.coinMinimalDenom
+		);
+		setBalance(_balance);
 	};
 
 	// txhash查询  Todo
 	const getTx = async () => {
+		if (!tx) return;
 		const result = await client.getTx(tx);
-		console.log(result);
 		setTxRes(result);
 	};
 
 	// 转账 Todo
 	const sendToken = async () => {
-		if (!client) return;
+		if (!client || !recipent || !address) return;
 
 		const convertAmount = 10 * 1e6;
 		const amount = [
@@ -62,7 +64,7 @@ function Keplr() {
 			amount: [
 				{
 					denom: chain.stakeCurrency.coinMinimalDenom,
-					amount: chain.gasPriceStep.average,
+					amount: 0.025,
 				},
 			],
 			gas: "200000",
@@ -138,15 +140,16 @@ function Keplr() {
 			<div className="weight">
 				<span style={{ whiteSpace: "nowrap" }}>余额: &nbsp;</span>
 				<div>
-					{balances?.map((item) => {
-						return (
-							<div className="ell" key={item.denom}>
-								{parseFloat(String(item?.amount / Math.pow(10, 6))).toFixed(2)}
-								&nbsp;
-								{item?.denom}
-							</div>
-						);
-					})}
+					{balance?.amount && (
+						<>
+							<span>
+								{parseFloat(
+									String(Number(balance?.amount) / Math.pow(10, 6))
+								).toFixed(2)}
+							</span>
+							<span> {balance?.denom}</span>
+						</>
+					)}
 				</div>
 			</div>
 			<hr />
@@ -156,6 +159,7 @@ function Keplr() {
 					type="text"
 					value={recipent}
 					placeholder="address"
+					style={{ width: "350px" }}
 					onChange={(e) => setRecipent(e.target.value)}
 				/>
 				&nbsp;
@@ -165,11 +169,19 @@ function Keplr() {
 			</div>
 			<label>2、getTx()</label>
 			<div>
-				<span>{tx}</span>
+				<input value={tx} readOnly style={{ width: "350px" }} />
 				&nbsp;
 				<button onClick={getTx}>查询</button>
 			</div>
-			<div className="tx">txRes:{JSON.stringify(txRes)}</div>
+			<div className="tx">
+				{txRes && (
+					<>
+						<div>height:{txRes?.height} </div>
+						<div>gasUsed:{txRes?.gasUsed} </div>
+						<div>gasWanted:{txRes?.gasWanted} </div>
+					</>
+				)}
+			</div>
 			{/* <label>3、sendIbcTokens() & broadcastTx</label>
 			<div>
 				<input
