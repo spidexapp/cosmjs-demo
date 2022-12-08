@@ -1,6 +1,6 @@
 ## Cosmjs 前端实践
 
-<img width="640" alt="image" src="https://user-images.githubusercontent.com/14268015/206352501-8e33e87e-f329-4a88-81b7-fceb8f1519ab.png">
+<img width="1596" alt="image" src="https://user-images.githubusercontent.com/14268015/206373035-c46c650e-f1e7-4b25-a5d7-cb73eadf3cb3.png">
 
 ## 相关资料
 
@@ -23,7 +23,7 @@
 
 ```
  1、npm install 
- 2、yarn start
+ 2、npm run start
 ```
 
 ## 克隆此仓库 按照步骤实现
