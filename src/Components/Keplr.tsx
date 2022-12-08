@@ -1,9 +1,5 @@
-import {
-	assertIsDeliverTxSuccess,
-	SigningStargateClient,
-} from "@cosmjs/stargate";
-import React, { useEffect, useState } from "react";
 import type { ChainInfo } from "@keplr-wallet/types";
+import React, { useEffect, useState } from "react";
 import osmo from "../config/osmosis";
 
 function Keplr() {
@@ -31,18 +27,11 @@ function Keplr() {
 		getBalances();
 	}, [address, client, sendHash]);
 
-	// 余额查询  Todo
-	const getBalances = async () => {
-		if (!client) return;
-		const _balance = await client.getBalance(
-			address,
-			chain.stakeCurrency.coinMinimalDenom
-		);
-		setBalance(_balance);
-	};
-
 	// 连接keplr钱包  Todo
 	const connectWallet = async () => {};
+
+	// 余额查询  Todo
+	const getBalances = async () => {};
 
 	// txhash查询  Todo
 	const getTx = async () => {};
@@ -50,7 +39,6 @@ function Keplr() {
 	// 转账 Todo
 	const sendToken = async () => {};
 
-	
 	return (
 		<div className="keplr">
 			<h2>Keplr Wallet</h2>
