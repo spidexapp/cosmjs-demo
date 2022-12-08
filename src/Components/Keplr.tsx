@@ -31,6 +31,29 @@ function Keplr() {
 		getBalances();
 	}, [address, client, sendHash]);
 
+	// 连接keplr钱包  Todo
+	const connectWallet = async () => {
+		if (!window.keplr || !window.getOfflineSigner) {
+			return;
+		}
+
+		await window.keplr.experimentalSuggestChain(chain);
+		await window.keplr.enable(chain.chainId);
+
+		const offlineSigner = window.keplr.getOfflineSigner(chain.chainId);
+
+		const accounts = await offlineSigner.getAccounts();
+		const client = await SigningStargateClient.connectWithSigner(
+			chain.rpc,
+			offlineSigner
+		);
+
+		// add your chain to keplr
+		setAddress(accounts[0].address);
+		setClient(client);
+	};
+
+
 	// 余额查询  Todo
 	const getBalances = async () => {
 		if (!client) return;
@@ -92,28 +115,6 @@ function Keplr() {
 		} catch (e) {
 			console.log(e);
 		}
-	};
-
-	// 连接keplr钱包  Todo
-	const connectWallet = async () => {
-		if (!window.keplr || !window.getOfflineSigner) {
-			return;
-		}
-
-		await window.keplr.experimentalSuggestChain(chain);
-		await window.keplr.enable(chain.chainId);
-
-		const offlineSigner = window.keplr.getOfflineSigner(chain.chainId);
-
-		const accounts = await offlineSigner.getAccounts();
-		const client = await SigningStargateClient.connectWithSigner(
-			chain.rpc,
-			offlineSigner
-		);
-
-		// add your chain to keplr
-		setAddress(accounts[0].address);
-		setClient(client);
 	};
 
 	return (
